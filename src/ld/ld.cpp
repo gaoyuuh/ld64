@@ -759,7 +759,7 @@ bool InternalState::inMoveAuthChain(const ld::Atom& atom, bool followedBackBranc
 
 ld::Internal::FinalSection* InternalState::addAtom(const ld::Atom& atom)
 {
-	//fprintf(stderr, "addAtom: %s\n", atom.name());
+	fprintf(stderr, "addAtom: %s\n", atom.name());
 	ld::Internal::FinalSection* fs = NULL;
 	const char* curSectName = atom.section().sectionName();
 	const char* curSegName = atom.section().segmentName();

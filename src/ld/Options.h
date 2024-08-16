@@ -49,12 +49,13 @@ class LibraryOptions
 public:
 
 	// Loading mode of static archives.
+	// .a库的加载模式
 	enum class ArchiveLoadMode {
 		unknown,
-		lazy, // lazily load .o files only when their symbols are referenced
-		parseObjects, // parse all .o files, but still load their atoms lazily
-		objc, // loading all .o files with objc metadata
-		forceLoad // always load all .o files
+		lazy, // lazily load .o files only when their symbols are referenced 仅当.o文件的符号被引用时才懒加载
+		parseObjects, // parse all .o files, but still load their atoms lazily 解析所有.o文件，但仍是懒加载符号
+		objc, // loading all .o files with objc metadata 如果有objc类，则加载.o文件
+		forceLoad // always load all .o files 加载所有.o文件
 	};
 
 	LibraryOptions() : fWeakImport(false), fReExport(false), fBundleLoader(false), 

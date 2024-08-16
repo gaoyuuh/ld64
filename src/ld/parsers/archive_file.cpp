@@ -463,12 +463,13 @@ bool File<A>::loadMember(MemberState& state, ld::File::AtomHandler& handler, con
 	return didSomething;
 }
 
-
+/// 处理了.a库中 -force_load 、-ObjC的情况
 template <typename A>
 bool File<A>::forEachAtom(ld::File::AtomHandler& handler) const
 {
 	bool didSome = false;
 	if ( _loadMode == LibraryOptions::ArchiveLoadMode::forceLoad ) {
+		// force_load 在这里处理 .o 文件
 		// call handler on all .o files in this archive
 		const Entry* const start = (Entry*)&_archiveFileContent[8];
 		const Entry* const end = (Entry*)&_archiveFileContent[_archiveFilelength];

@@ -346,6 +346,13 @@ class Bitcode;
 // File is a static library, justInTimeforEachAtom() will iterate over the base set
 // of Atoms from the archive member implementing 'name'.
 //
+/*
+ ld::File
+ 
+ forEachAtom() 按照文件中出现的顺序对 Atom 进行迭代。
+
+ justInTimeforEachAtom(name) 对延迟创建的 Atom 进行迭代。例如，如果 File 是静态库，justInTimeforEachAtom() 将从实现“name”的 .a库 成员中迭代基本 Atom 集。
+ */
 class File
 {
 public:

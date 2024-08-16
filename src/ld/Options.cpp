@@ -836,6 +836,7 @@ bool Options::checkForFile(const char* format, const char* dir, const char* root
 	return checkForFileWithSuffix(possiblePath, result);
 }
 
+// 查找 -l 链接的库
 Options::FileInfo Options::findLibrary(const char* rootName, bool dylibsOnly) const
 {
 	FileInfo result(*this);
@@ -4317,7 +4318,7 @@ bool Options::shouldUseBuildVersion(ld::Platform plat, uint32_t minOSvers) const
 // is used as is.  If multiple -syslibroot options are specified
 // their directory structures are logically overlayed and files
 // from sdks specified earlier on the command line used before later ones.
-
+// 决定出 fFrameworkSearchPaths、fLibrarySearchPaths查找路径
 void Options::buildSearchPaths(int argc, const char* argv[])
 {
 	bool addStandardLibraryDirectories = true;
@@ -4327,6 +4328,7 @@ void Options::buildSearchPaths(int argc, const char* argv[])
 	libraryPaths.reserve(10);
 	frameworkPaths.reserve(10);
 	// scan through argv looking for -L, -F, -Z, and -syslibroot options
+	// 扫描argv，查找-L、-F、-Z和-syslibroot选项
 	for(int i=0; i < argc; ++i) {
 		if ( (argv[i][0] == '-') && (argv[i][1] == 'L') ) {
 			const char* libSearchDir = &argv[i][2];

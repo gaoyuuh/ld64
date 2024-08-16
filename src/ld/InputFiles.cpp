@@ -1422,7 +1422,7 @@ bool InputFiles::searchLibraries(const char* name, bool searchDylibs, bool searc
         if (lib.isDylib()) {
             if (searchDylibs) {
                 ld::dylib::File *dylibFile = lib.dylib();
-                //fprintf(stderr, "searchLibraries(%s), looking in linked %s\n", name, dylibFile->path() );
+                fprintf(stderr, "searchLibraries(%s), looking in linked %s\n", name, dylibFile->path() );
                 if ( dylibFile->justInTimeforEachAtom(name, handler) ) {
                     // we found a definition in this dylib
                     // done, unless it is a weak definition in which case we keep searching
@@ -1473,7 +1473,7 @@ bool InputFiles::searchLibraries(const char* name, bool searchDylibs, bool searc
 				searchThisDylib = ! dylibFile->explicitlyLinked();
 			}
 			if ( searchThisDylib ) {
-				//fprintf(stderr, "searchLibraries(%s), looking in implicitly linked %s\n", name, dylibFile->path() );
+				fprintf(stderr, "searchLibraries(%s), looking in implicitly linked %s\n", name, dylibFile->path() );
 				if ( dylibFile->justInTimeforEachAtom(name, handler) ) {
 					// we found a definition in this dylib
 					// done, unless it is a weak definition in which case we keep searching

@@ -346,7 +346,7 @@ private:
 	}
 	
 	void pickAtom() {
-		//fprintf(stderr, "pickAtom(), a=%p, def=%d, b=%p, def=%d\n", &_atomA, _atomA.definition(), &_atomB, _atomB.definition());
+		fprintf(stderr, "pickAtom(), a=%p, def=%d, b=%p, def=%d\n", &_atomA, _atomA.definition(), &_atomB, _atomB.definition());
 		// First, discriminate by definition
 		switch (_atomA.definition()) {
 			case ld::Atom::definitionRegular:
@@ -435,7 +435,7 @@ bool SymbolTable::addByName(const ld::Atom& newAtom, Options::Treatment duplicat
 	const char* name = newAtom.name();
 	IndirectBindingSlot slot = this->findSlotForName(name);
 	const ld::Atom* existingAtom = _indirectBindingTable[slot];
-	//fprintf(stderr, "addByName(%p) name=%s, slot=%u, existing=%p\n", &newAtom, newAtom.name(), slot, existingAtom);
+	fprintf(stderr, "addByName(%p) name=%s, slot=%u, existing=%p\n", &newAtom, newAtom.name(), slot, existingAtom);
 	if ( existingAtom != NULL ) {
 		assert(&newAtom != existingAtom);
 		NameCollisionResolution picker(newAtom, *existingAtom, duplicates, _options);
@@ -471,7 +471,7 @@ bool SymbolTable::addByContent(const ld::Atom& newAtom)
 	bool useNew = true;
 	const ld::Atom* existingAtom;
 	IndirectBindingSlot slot = this->findSlotForContent(&newAtom, &existingAtom);
-	//fprintf(stderr, "addByContent(%p) name=%s, slot=%u, existing=%p\n", &newAtom, newAtom.name(), slot, existingAtom);
+	fprintf(stderr, "addByContent(%p) name=%s, slot=%u, existing=%p\n", &newAtom, newAtom.name(), slot, existingAtom);
 	if ( existingAtom != NULL ) {
 		// use existing unless new one has greater alignment requirements
 		useNew = ( newAtom.alignment().trailingZeros() > existingAtom->alignment().trailingZeros() );
@@ -495,7 +495,7 @@ bool SymbolTable::addByReferences(const ld::Atom& newAtom)
 	bool useNew = true;
 	const ld::Atom* existingAtom;
 	IndirectBindingSlot slot = this->findSlotForReferences(&newAtom, &existingAtom);
-	//fprintf(stderr, "addByReferences(%p) name=%s, slot=%u, existing=%p\n", &newAtom, newAtom.name(), slot, existingAtom);
+	fprintf(stderr, "addByReferences(%p) name=%s, slot=%u, existing=%p\n", &newAtom, newAtom.name(), slot, existingAtom);
 	if ( existingAtom != NULL ) {
 		// use existing unless new one has greater alignment requirements
 		useNew = ( newAtom.alignment().trailingZeros() > existingAtom->alignment().trailingZeros() );
@@ -516,7 +516,7 @@ bool SymbolTable::addByReferences(const ld::Atom& newAtom)
 
 bool SymbolTable::add(const ld::Atom& atom, Options::Treatment duplicates)
 {
-	//fprintf(stderr, "SymbolTable::add(%p), name=%s\n", &atom, atom.name());
+	fprintf(stderr, "SymbolTable::add(%p), name=%s\n", &atom, atom.name());
 	assert(atom.scope() != ld::Atom::scopeTranslationUnit);
 	switch ( atom.combine() ) {
 		case ld::Atom::combineNever:
@@ -640,7 +640,7 @@ void SymbolTable::removeDeadAtoms()
 		const ld::Atom* atom = _indirectBindingTable[slot];
 		if ( atom != NULL ) {
 			if ( !atom->live() && !atom->dontDeadStrip() ) {
-				//fprintf(stderr, "removing from symbolTable[%u] %s\n", slot, atom->name());
+				fprintf(stderr, "removing from symbolTable[%u] %s\n", slot, atom->name());
 				_indirectBindingTable[slot] = NULL;
 				// <rdar://problem/16025786> need to completely remove dead atoms from symbol table
 				_byNameReverseTable.erase(slot);
@@ -815,7 +815,7 @@ SymbolTable::IndirectBindingSlot SymbolTable::findSlotForContent(const ld::Atom*
 // find existing or create new slot
 SymbolTable::IndirectBindingSlot SymbolTable::findSlotForReferences(const ld::Atom* atom, const ld::Atom** existingAtom)
 {
-	//fprintf(stderr, "findSlotForReferences(%p)\n", atom);
+	fprintf(stderr, "findSlotForReferences(%p)\n", atom);
 	
 	SymbolTable::IndirectBindingSlot slot = 0;
 	ReferencesToSlot::iterator pos;

@@ -714,7 +714,10 @@ void Resolver::doFile(const ld::File& file)
 
 void Resolver::doAtom(const ld::Atom& atom)
 {
-	//fprintf(stderr, "Resolver::doAtom(%p), name=%s, sect=%s, scope=%d\n", &atom, atom.name(), atom.section().sectionName(), atom.scope());
+	fprintf(stderr, "Resolver::doAtom(%p), name=%s, sect=%s, scope=%d\n", &atom, atom.name(), atom.section().sectionName(), atom.scope());
+	if (strcmp(atom.name(), "_hello") == 0) {
+		
+	}
 	if ( _ltoCodeGenFinished && (atom.contentType() == ld::Atom::typeLTOtemporary) && (atom.scope() != ld::Atom::scopeTranslationUnit) )
 		warning("'%s' is implemented in bitcode, but it was loaded too late", atom.name());
 
@@ -1093,7 +1096,7 @@ void Resolver::resolveAllUndefines()
 
 void Resolver::markLive(const ld::Atom& atom, WhyLiveBackChain* previous)
 {
-	//fprintf(stderr, "markLive(%p) %s\n", &atom, atom.name());
+	fprintf(stderr, "markLive(%p) %s\n", &atom, atom.name());
 	// if -why_live cares about this symbol, then dump chain
 	if ( _printWhyLive ) {
 		[[unlikely]]
